@@ -1,0 +1,40 @@
+from __future__ import annotations
+
+import uuid
+from decimal import Decimal
+
+from sqlalchemy import ForeignKey, Integer, Numeric, String
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from models.base import Base
+
+
+class OrderItem(Base):
+    __tablename__ = "order_items"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        server_default="gen_random_uuid()",
+    )
+    order_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("orders.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    product_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("products.id"),
+        nullable=False,
+    )
+    product_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    unit_price: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
+    quantity: Mapped[int] = mapped_column(Integer, nullable=False)
+    line_total: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
+
+    order: Mapped["Order"] = relationship(back_populates="items")
+
+    def __repr__(self) -> str:
+        return f"<OrderItem order_id={self.order_id} product={self.product_name} x{self.quantity}>"

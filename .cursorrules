@@ -1,0 +1,11 @@
+Project: DailyDrop (Hyperlocal Marketplace)
+Stack: 
+  - Frontend: Next.js (App Router, TS), Redux Toolkit
+  - Backend: Python FastAPI (Async), PostgreSQL + PostGIS (via Supabase), Redis
+  - Auth/SMS: Supabase Auth + Twilio OTP
+
+Coding Guidelines:
+  - Write modular, clean, type-hinted Python code for FastAPI.
+  - Use asynchronous database drivers/handlers where possible.
+  - Keep Next.js components clean; delegate global state to Redux slices.
+  - Always write clean migrations/SQL scripts for database changes.

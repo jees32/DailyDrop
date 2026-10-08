@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy[asyncio]>=2.0
+asyncpg
+psycopg2-binary
+python-dotenv
+alembic
+geoalchemy2
+PyJWT[crypto]
+redis>=5.0
+huggingface_hub>=0.26
